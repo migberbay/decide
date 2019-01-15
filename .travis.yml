@@ -1,8 +1,6 @@
 language: python 
 python: 
 - "3.6"
-- "3.3"
-- "2.7"
 env: 
 - DJANGO=2.0 DB=postgres
 before_install: 
@@ -19,7 +17,8 @@ addons:
 global:
   - PGPORT=5432
 before_script:
+ - cp local_settings.travis.py local_settings.py
  - psql -c "create user decide with password 'decide'" 
  - psql -c "create database decide owner decide"
- - sudo python3 manage.py migrate
- - cp local_settings.travis.py local_settings.py
+ - python manage.py migrate
+
